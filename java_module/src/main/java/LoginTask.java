@@ -67,14 +67,24 @@ public class LoginTask implements Runnable{
             response7.close();
             Response response8 = httpService.getRequest(url8);
             response8.close();
-            //第9次请求 进健康上报
+            //第9次请求 进健康上报重定向
             Response response9 = httpService.getRequest(dailyReportUrl);
-            //
+            //第10次请求 进健康上报主页
             String url10 = response9.header("Location");
             response9.close();
             Response response10 = httpService.getRequest(url10);
+            response10.close();
+            //第11次请求 新建上报
+            Response response11 = httpService.postRequest("http://ehall.seu.edu.cn/qljfwapp2/sys/lwReportEpidemicSeu/modules/dailyReport/cxwdjbxxcjsl.do", new FormBody.Builder().add("pageNumber","1").build());
+            response11.close();
+            //获取wid
+            Response response12 = httpService.postRequest("http://ehall.seu.edu.cn/qljfwapp2/sys/lwReportEpidemicSeu/modules/dailyReport/getMyTodayReportWid.do", new FormBody.Builder().add("pageNumber","1").build());
+            System.out.println(response12.body().string());
+            //获取server time
+            Response response13 = httpService.postRequest("http://ehall.seu.edu.cn/qljfwapp2/sys/lwReportEpidemicSeu/modules/dailyReport/getMyTodayReportWid.do", new FormBody.Builder().add("pageNumber","1").build());
+            System.out.println(response13.body().string());
             //
-            System.out.println(response10.body().string());
+
         }catch (Exception e){
             e.printStackTrace();
         }

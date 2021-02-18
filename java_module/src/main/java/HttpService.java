@@ -80,7 +80,6 @@ public class HttpService {
     }
 
     private void addCookie(String cookie_raw){
-        System.out.println(cookie_raw.split(";")[0]);
         cookiesMap.put(cookie_raw.split(";")[0].split("=")[0],cookie_raw.split(";")[0] + "; ");
     }
 }
